@@ -1,0 +1,49 @@
+
+1a.
+After doing a few calculations, it seems that they got the value that they received initially
+from adding up the average amounts for each store then dividing them by 100. The mistake in this comes from
+not considering the range of the highest average money making stores and the lowest average money making stores,
+which is approximately $23,4938.6331. I believe that it is best to calculate the AOV by store and also by items bought. I do this because there is also a large range when it comes to the number of items in an order (1,999).
+
+1b. I would report AOV by store by item amount then take the overall average. Or Overall AOV with respect to number of items bought for each store
+
+
+1c. $407.99
+
+
+2a. 54
+
+QUERY:
+SELECT COUNT(OrderID) AS 'Number of Orders By Speedy Express'
+FROM [Orders]
+INNER JOIN [Shippers]
+ON [Shippers].ShipperID = [Orders].ShipperID
+WHERE [Shippers].ShipperName = "Speedy Express";
+
+2b. Peacock
+
+QUERY:
+SELECT LastName, COUNT(*) AS 'Number of Orders'
+FROM [Employees]
+INNER JOIN [Orders]
+ON [Orders].EmployeeID = [Employees].EmployeeID
+GROUP BY [Employees].EmployeeID
+ORDER BY COUNT(*) DESC
+LIMIT 1;
+
+2c. Boston Crab Meat
+
+QUERY:
+
+SELECT [Products].ProductName, SUM(Quantity) AS 'Number of Orders'
+FROM [OrderDetails]
+INNER JOIN [Orders]
+ON [OrderDetails].OrderID = [Orders].OrderID
+INNER JOIN [Products]
+ON [Products].ProductID = [OrderDetails].ProductID
+INNER JOIN [Customers]
+ON [Customers].CustomerID = [Orders].CustomerID
+WHERE [Customers].Country = 'Germany'
+GROUP BY [OrderDetails].ProductID
+ORDER BY SUM(Quantity) DESC
+LIMIT 1;
